@@ -1,10 +1,10 @@
 {
     "name": "nofikoff/yii2-proxybrowser",
     "description": "test",
-    "version": "v1.6",
+    "version": "v1.7",
     "license": "test",
     "require": {},
     "autoload": {
-        "psr-4": ["nofikoff/yii2-proxybrowser/"]
+        "psr-4": ["Nofikoff\\Yii2ProxyBrowser\\"]
     }
 }

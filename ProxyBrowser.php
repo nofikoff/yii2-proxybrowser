@@ -1,6 +1,6 @@
 <?php
 
-namespace Nofikoff\Yii2ProxyBrowser;
+namespace nofikoff\proxybrowser;
 
 //use Yii;
 

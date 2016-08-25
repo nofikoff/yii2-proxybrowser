@@ -5,6 +5,6 @@
     "license": "test",
     "require": {},
     "autoload": {
-        "psr-4": {"Nofikoff\\Yii2ProxyBrowser\\": "app/models"}
+        "psr-4": {"nofikoff\\proxybrowser\\": ""}
     }
 }

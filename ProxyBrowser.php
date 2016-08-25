@@ -8,7 +8,7 @@ namespace nofikoff\proxybrowser;
 // работа с прокси
 // работа с каптчой
 //
-class Yii2ProxyBrowser
+class ProxyBrowser
 {
 
 

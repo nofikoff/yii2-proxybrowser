@@ -1,8 +1,8 @@
 <?php
 
-namespace app\models;
+namespace nofikoff/yii2-proxybrowser;
 
-use Yii;
+//use Yii;
 
 
 // работа с прокси

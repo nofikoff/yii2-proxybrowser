@@ -1,6 +1,6 @@
 <?php
 
-namespace nofikoff\yii2-proxybrowser;
+namespace Nofikoff\Yii2ProxyBrowser;
 
 //use Yii;
 
@@ -8,7 +8,7 @@ namespace nofikoff\yii2-proxybrowser;
 // работа с прокси
 // работа с каптчой
 //
-class Yii2Proxybrowser
+class Yii2ProxyBrowser
 {
 
 

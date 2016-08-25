@@ -2,8 +2,6 @@
     "packages": {
         "nofikoff/yii2-proxybrowser": {
             "dev-master": {
-                "name": "nofikoff/yii2-proxybrowser",
-                "version": "dev-master",
                 "source": {
                     "url": "https://github.com/nofikoff/yii2-proxybrowser.git",
                     "type": "git",

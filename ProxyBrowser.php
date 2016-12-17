@@ -89,14 +89,7 @@ class ProxyBrowser
         // если несколько хидеров из за редиректов - опредеим поседний контент тип
         if (preg_match('~Content-Type:\s+(.*)~i', $header, $d))
             $result['content_type'] = $d[1];
-        else
-            print_r($result);
-
-//        // КОСТЫЛЬ ибо пропускае ич асто
-//        if (preg_match('~<html>~i', $url)){
-//            $result['content_type'] = 'html';
-//        }
-
+        else print_r($result);
         return $result;
     }
     //200
@@ -425,8 +418,15 @@ class ProxyBrowser
             //проверяем не получили ли мы каптчу
             if ($this->result['http_code'] == '503' AND preg_match('~To continue, please type the characters below~u', $this->result['raw'])) {
                 // меняет $this->result
+                echo "ProxyBrowser каптчу ВИЖУ";
                 $this->get_http_google_antigate();
+
             } // Google
+            else {
+                echo "ProxyBrowser каптчу не вижу, все ОК";
+                //echo $this->result['raw'];
+                echo "<hr>\n";
+            }
         }
 
 
@@ -438,15 +438,25 @@ class ProxyBrowser
     {
 
 
-        echo "\n\n\n\n\n\n\n\n\n\n\n СОВЕТ, удали куки, если тут что то начинает глючить ;) <br><br><br><br><br>";
+        // в зависимоти от IP6 IP4 адрес гугла домена меняется
+        if (!preg_match('~Location:\shttps{0,1}://([^/]+)/~i', $this->result['header'], $d)) {
+            echo '<h1>Не могу определить на каокм адресе каптча</h1>';
+            return false;
+        }
 
-        echo 'ХИДЕР ' . $this->result['http_code'];
+        $google_sorry_domain = $d[1];
 
-        echo "\n\n\n\n\n\n\n\n\n\n\n<br><br><br><br><br>";
+        echo "\n\n\n\n\n\n\n\n\n\n\n Вызываем Антигейт - СОВЕТ, удали куки, если тут что то начинает глючить ;) <br><br><br><br><br>";
 
-        echo $this->result['raw'];
+        echo 'ХИДЕР ' . $this->result['header'];
+        echo "****************************************\n\n\n\n\n\n\n\n\n\n\n<br><br><br><br><br>";
 
-        echo "\n\n\n\n\n\n\n\n\n\n\n<br><br><br><br><br>";
+        echo 'URL ' . $this->result['url'];
+        echo "****************************************\n\n\n\n\n\n\n\n\n\n\n<br><br><br><br><br>";
+
+        echo 'RAW ' . $this->result['raw'];
+
+        echo "****************************************\n\n\n\n\n\n\n\n\n\n\n<br><br><br><br><br>";
 
         // Это 100% гугл каптча
         if (!preg_match('~img src="([^"]+?)"~i', $this->result['raw'], $d)) {
@@ -530,12 +540,21 @@ class ProxyBrowser
             } else {
 
                 // есть ответ покаптче
-                echo $get_c = 'https://www.google.com/sorry/CaptchaRedirect?q=' . $secret_q . '&captcha=' . $text . '&continue=' . $continue . "&submit=Submit";
-                $r = $this->get_http($get_c);
-                print_r($r);
+                //http://ipv6.google.com/sorry/index
 
+                if ($google_sorry_domain =='ipv6.google.com'){
+                    $get_c = 'http://' . $google_sorry_domain . '/sorry/index?q=' . $secret_q . '&captcha=' . $text . '&continue=' . $continue . "&submit=Submit";
+                }
+                else {
+                    $get_c = 'http://' . $google_sorry_domain . '/sorry/CaptchaRedirect?q=' . $secret_q . '&captcha=' . $text . '&continue=' . $continue . "&submit=Submit";
+                }
+
+                $r = $this->get_http($get_c);
+
+                print_r($r);
+                echo '<h1>Вроде прошли каптчу - перегрузи старницу!!!!!</h1>';
                 //чистим куки, ибо часто и за них потом траблы
-                unlink($this->file_cookies);
+                //unlink($this->file_cookies);
 
 
             }

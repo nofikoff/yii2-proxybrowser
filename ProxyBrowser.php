@@ -776,7 +776,6 @@ class ProxyBrowser
         //
         return $r;
     }
-    
 
 
 

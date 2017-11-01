@@ -775,6 +775,7 @@ class ProxyBrowser
         }
         //
         return $r;
+        
     }
 
     static function RemoveEmptySubFolders($path)
